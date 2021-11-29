@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 16:06:34 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/29 16:05:06 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/11/29 16:24:40 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ int	check_params(int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (-1);
-	if (ft_atoi(argv[1]) == -1 || ft_atoi(argv[1]) > 200)
+	if (ft_atoi(argv[1]) <= 0 || ft_atoi(argv[1]) > 200)
 		return (-1);
-	if (ft_atoi(argv[2]) == -1 || ft_atoi(argv[2]) < 60)
+	if (ft_atoi(argv[2]) < 60)
 		return (-1);
-	if (ft_atoi(argv[3]) == -1 || ft_atoi(argv[3]) < 60)
+	if (ft_atoi(argv[3]) < 60)
 		return (-1);
-	if (ft_atoi(argv[4]) == -1 || ft_atoi(argv[4]) < 60)
+	if (ft_atoi(argv[4]) < 60)
 		return (-1);
-	if (argc == 6 && ft_atoi(argv[5]) == -1)
+	if (argc == 6 && ft_atoi(argv[5]) <= 0)
 		return (-1);
 	return (1);
 }
