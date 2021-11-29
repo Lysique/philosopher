@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 09:55:41 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/29 11:27:41 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/11/29 16:11:27 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ void	ft_putstr(char *str)
 void	ft_write(int time, int name, char *str, t_philo *philo)
 {
 	pthread_mutex_lock(philo->write);
+	if (*philo->is_dead)
+	{
+		pthread_mutex_unlock(philo->write);
+		return ;
+	}
 	ft_putnb(time);
 	ft_putchar(' ');
 	ft_putnb(name);

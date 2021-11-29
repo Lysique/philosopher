@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 11:14:58 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/29 15:03:34 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/11/29 16:03:08 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_philo
 	int				left;
 	int				*is_dead;
 	int				*is_finished;
-	pthread_mutex_t	*end;
 	pthread_mutex_t	*write;
 	pthread_mutex_t	*forks;
 }				t_philo;
@@ -47,5 +46,6 @@ int		ft_get_time(void);
 void	*routine(void *arg);
 
 int		ft_free(t_philo *philo, int error);
+void	free_my_ptrs(void *ptr1, void *ptr2, void *ptr3);
 
 #endif

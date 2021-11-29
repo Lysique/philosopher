@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 16:06:34 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/29 15:03:29 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/11/29 16:05:06 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,15 @@ int	check_params(int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (-1);
-	if (ft_atoi(argv[1]) == -1 || ft_atoi(argv[2]) == -1
-		|| ft_atoi(argv[3]) == -1 || ft_atoi(argv[4]) == -1
-		|| (argc == 6 && ft_atoi(argv[5]) == -1))
+	if (ft_atoi(argv[1]) == -1 || ft_atoi(argv[1]) > 200)
+		return (-1);
+	if (ft_atoi(argv[2]) == -1 || ft_atoi(argv[2]) < 60)
+		return (-1);
+	if (ft_atoi(argv[3]) == -1 || ft_atoi(argv[3]) < 60)
+		return (-1);
+	if (ft_atoi(argv[4]) == -1 || ft_atoi(argv[4]) < 60)
+		return (-1);
+	if (argc == 6 && ft_atoi(argv[5]) == -1)
 		return (-1);
 	return (1);
 }
@@ -55,7 +61,7 @@ t_philo	variables_init2(int argc, char **argv, t_philo philo)
 		philo.nb_times_to_eat = ft_atoi(argv[5]);
 	else
 		philo.nb_times_to_eat = -1;
-	philo.last_eat = 0;	
+	philo.last_eat = 0;
 	philo.right = philo.name - 1;
 	philo.left = philo.name % philo.nb_philo;
 	philo.last_eat = ft_get_time();
@@ -71,15 +77,13 @@ t_philo	*variables_init(int argc, char **argv, t_philo *philo)
 	i = 0;
 	is_dead = malloc(sizeof(int));
 	is_finished = malloc(sizeof(int));
-	if (!is_dead || !is_finished)
+	if (!is_finished || !is_dead || !philo)
 	{
-		free(philo);
-		if (is_dead)
-			free(is_dead);
-		if (is_finished)
-			free(is_finished);
+		free_my_ptrs(is_dead, is_finished, philo);
 		return (0);
 	}
+	*is_dead = 0;
+	*is_finished = 0;
 	while (i < ft_atoi(argv[1]))
 	{
 		philo[i].name = i + 1;
@@ -98,10 +102,6 @@ t_philo	*philo_init(int argc, char **argv)
 	if (check_params(argc, argv) == -1)
 		return (0);
 	philo = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
-	if (!philo)
-		return (0);
 	philo = variables_init(argc, argv, philo);
-	*philo->is_dead = 0;
-	*philo->is_finished = 0;
 	return (philo);
 }

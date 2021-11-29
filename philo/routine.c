@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:26:23 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/29 15:03:27 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/11/29 16:18:11 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_think(t_philo *philo)
 	pthread_mutex_lock(&philo->forks[philo->right]);
 	if (*philo->is_dead)
 		return (1);
-	ft_write(ft_get_time(), philo->name, "has taken a fork\n", philo);	
+	ft_write(ft_get_time(), philo->name, "has taken a fork\n", philo);
 	pthread_mutex_lock(&philo->forks[philo->left]);
 	if (*philo->is_dead)
 		return (1);
@@ -53,7 +53,7 @@ int	ft_eat_and_sleep(t_philo *philo)
 	{
 		if (*philo->is_dead)
 			return (1);
-		usleep(50);
+		usleep(philo->nb_philo * 2);
 	}
 	pthread_mutex_unlock(&philo->forks[philo->right]);
 	pthread_mutex_unlock(&philo->forks[philo->left]);
@@ -63,7 +63,7 @@ int	ft_eat_and_sleep(t_philo *philo)
 	{	
 		if (*philo->is_dead)
 			return (1);
-		usleep(50);
+		usleep(philo->nb_philo * 2);
 	}
 	return (0);
 }
@@ -83,7 +83,5 @@ void	*routine(void *arg)
 			philo->nb_times_to_eat--;
 	}
 	(*philo->is_finished)++;
-	if (*philo->is_finished == philo->nb_philo)
-		pthread_mutex_unlock(philo->end);
 	return (0);
 }
