@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 16:06:34 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/04 09:45:46 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/04 12:06:27 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,10 @@ t_philo	*philo_init(int argc, char **argv)
 	philo = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
 	if (!philo)
 		return (0);
+	sem_unlink("forks");
+	sem_unlink("write");
+	sem_unlink("finished");
+	sem_unlink("dead");
 	philo = variables_init(argc, argv, philo);
 	return (philo);
 }
