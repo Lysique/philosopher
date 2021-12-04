@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/23 12:57:36 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/04 09:54:05 by tamighi          ###   ########.fr       */
+/*   Created: 2021/11/30 11:19:01 by tamighi           #+#    #+#             */
+/*   Updated: 2021/11/30 11:58:32 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher_bonus.h"
 
-int	main(int argc, char **argv)
+int	ft_get_time(void)
 {
-	t_philo		*philo;
+	struct timeval	tv;
+	int				time;
 
-	philo = philo_init(argc, argv);
-	if (!philo)
-		return (0);
-	semaphores_init(philo);
+	time = 0;
+	gettimeofday(&tv, 0);
+	time += tv.tv_usec / 1000;
+	time += (tv.tv_sec % 1000) * 1000;
+	return (time);
 }

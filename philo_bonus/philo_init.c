@@ -6,11 +6,11 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 16:06:34 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/30 11:15:06 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/04 09:45:46 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "philosopher_bonus.h"
 
 int	ft_atoi(char *c)
 {
@@ -61,33 +61,27 @@ t_philo	variables_init2(int argc, char **argv, t_philo philo)
 		philo.nb_times_to_eat = ft_atoi(argv[5]);
 	else
 		philo.nb_times_to_eat = -1;
-	philo.right = philo.name - 1;
-	philo.left = philo.name % philo.nb_philo;
 	philo.last_eat = ft_get_time();
 	return (philo);
 }
 
 t_philo	*variables_init(int argc, char **argv, t_philo *philo)
 {
-	int	i;
-	int	*is_dead;
-	int	*is_finished;
+	int		i;
+	int		*end;
 
 	i = 0;
-	is_dead = malloc(sizeof(int));
-	is_finished = malloc(sizeof(int));
-	if (!is_finished || !is_dead || !philo)
+	end = malloc(sizeof(int));
+	if (!end)
 	{
-		free_my_ptrs(is_dead, is_finished, philo);
+		free(philo);
 		return (0);
 	}
-	*is_dead = 0;
-	*is_finished = 0;
+	*end = 0;
 	while (i < ft_atoi(argv[1]))
 	{
 		philo[i].name = i + 1;
-		philo[i].is_dead = is_dead;
-		philo[i].is_finished = is_finished;
+		philo[i].end = end;
 		philo[i] = variables_init2(argc, argv, philo[i]);
 		i++;
 	}
@@ -101,6 +95,8 @@ t_philo	*philo_init(int argc, char **argv)
 	if (check_params(argc, argv) == -1)
 		return (0);
 	philo = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
+	if (!philo)
+		return (0);
 	philo = variables_init(argc, argv, philo);
 	return (philo);
 }

@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/23 12:57:36 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/04 09:54:05 by tamighi          ###   ########.fr       */
+/*   Created: 2021/12/01 12:14:39 by tamighi           #+#    #+#             */
+/*   Updated: 2021/12/04 09:55:19 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher_bonus.h"
 
-int	main(int argc, char **argv)
+int	free_all(t_philo *philo)
 {
-	t_philo		*philo;
-
-	philo = philo_init(argc, argv);
-	if (!philo)
-		return (0);
-	semaphores_init(philo);
+	sem_close(philo->forks);
+	sem_close(philo->write);
+	sem_close(philo->is_finished);
+	sem_close(philo->is_dead);
+	sem_unlink("forks");
+	sem_unlink("write");
+	sem_unlink("finished");
+	sem_unlink("dead");
+	free(philo->end);
+	free(philo);
+	return (0);
 }
