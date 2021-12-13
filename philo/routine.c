@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:26:23 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/29 16:18:11 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/13 08:23:03 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	ft_eat_and_sleep(t_philo *philo)
 	pthread_mutex_unlock(&philo->forks[philo->right]);
 	pthread_mutex_unlock(&philo->forks[philo->left]);
 	ft_write(ft_get_time(), philo->name, "is sleeping\n", philo);
+	if (!philo->nb_times_to_eat)
+		return (0);
 	time = ft_get_time();
 	while (ft_get_time() - time < philo->t_to_sleep)
 	{	
@@ -75,12 +77,12 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	while (philo->nb_times_to_eat)
 	{
+		if (philo->nb_times_to_eat > 0)
+			philo->nb_times_to_eat--;
 		if (ft_think(philo))
 			return (0);
 		if (ft_eat_and_sleep(philo))
 			return (0);
-		if (philo->nb_times_to_eat > 0)
-			philo->nb_times_to_eat--;
 	}
 	(*philo->is_finished)++;
 	return (0);

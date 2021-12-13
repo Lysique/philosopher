@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 16:06:34 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/30 11:15:06 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/13 08:19:08 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ t_philo	variables_init2(int argc, char **argv, t_philo philo)
 {
 	philo.nb_philo = ft_atoi(argv[1]);
 	philo.t_to_die = ft_atoi(argv[2]);
-	philo.t_to_sleep = ft_atoi(argv[3]);
-	philo.t_to_eat = ft_atoi(argv[4]);
+	philo.t_to_eat = ft_atoi(argv[3]);
+	philo.t_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		philo.nb_times_to_eat = ft_atoi(argv[5]);
 	else

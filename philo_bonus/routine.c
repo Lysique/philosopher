@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 12:39:08 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/04 09:43:28 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/13 08:25:29 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	ft_eat_and_sleep(t_philo *philo)
 	sem_post(philo->forks);
 	sem_post(philo->forks);
 	ft_write(ft_get_time(), philo->name, "is sleeping\n", philo);
+	if (!philo->nb_times_to_eat)
+		return (0);
 	time = ft_get_time();
 	while (ft_get_time() - time < philo->t_to_sleep)
 		usleep(philo->nb_philo * 2);
@@ -70,12 +72,12 @@ void	routine(t_philo *philo)
 		return ;
 	while (philo->nb_times_to_eat)
 	{
+		if (philo->nb_times_to_eat > 0)
+			philo->nb_times_to_eat--;
 		if (ft_think(philo))
 			break ;
 		if (ft_eat_and_sleep(philo))
 			break ;
-		if (philo->nb_times_to_eat > 0)
-			philo->nb_times_to_eat--;
 	}
 	*philo->end = 1;
 	pthread_join(thread, 0);
