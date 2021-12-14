@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 09:55:41 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/04 09:43:36 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/14 15:18:11 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void	ft_write(int time, int name, char *str, t_philo *philo)
 	ft_putnb(name);
 	ft_putchar(' ');
 	ft_putstr(str);
-	sem_post(philo->write);
+	if (!*philo->end)
+		sem_post(philo->write);
 }

@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 16:58:24 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/29 16:19:04 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/14 14:30:45 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	death_checker(t_philo *philo)
 	i = 0;
 	while (1)
 	{
-		if (ft_get_time() - philo[i].last_eat > philo[i].t_to_die
+		if (ft_get_time(philo->start) - philo[i].last_eat > philo[i].t_to_die
 			&& philo[i].nb_times_to_eat)
 		{
-			ft_write(ft_get_time(), philo[i].name, "died\n", philo);
+			ft_write(ft_get_time(philo->start), philo[i].name, "died\n", philo);
 			*philo->is_dead = 1;
 			i = 0;
 			while (i < philo->nb_philo)
@@ -33,8 +33,10 @@ void	death_checker(t_philo *philo)
 			break ;
 		i++;
 		if (i == philo->nb_philo)
+		{
 			i = 0;
-		usleep(50);
+			usleep(500);
+		}
 	}
 }
 
@@ -99,6 +101,6 @@ int	ft_philosopher(t_philo *philo)
 	pthread_mutex_t	write;
 
 	if (pthread_mutex_init(&write, 0))
-		return (1);
+		return (0);
 	return (forks_init(philo, write));
 }

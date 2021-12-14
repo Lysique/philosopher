@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 11:14:58 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/29 16:03:08 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/14 14:26:15 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_philo
 	int				name;
 	int				right;
 	int				left;
+	int				start;
 	int				*is_dead;
 	int				*is_finished;
 	pthread_mutex_t	*write;
@@ -41,11 +42,10 @@ t_philo	*philo_init(int argc, char **argv);
 int		ft_philosopher(t_philo *philo);
 
 void	ft_write(int time, int name, char *str, t_philo *philo);
-int		ft_get_time(void);
+int		ft_get_time(int start);
 
 void	*routine(void *arg);
 
 int		ft_free(t_philo *philo, int error);
-void	free_my_ptrs(void *ptr1, void *ptr2, void *ptr3);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 12:39:08 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/13 08:25:29 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/14 15:23:58 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,27 @@ void	*dead_checker(void *arg)
 	{
 		if (*philo->end)
 			break ;
-		if (ft_get_time() - philo->last_eat > philo->t_to_die)
+		if (ft_get_time(philo->start) - philo->last_eat > philo->t_to_die)
 		{
 			*philo->end = 1;
-			ft_write(ft_get_time(), philo->name, "is dead\n", philo);
+			ft_write(ft_get_time(philo->start), philo->name, "is dead\n", philo);
 			sem_post(philo->is_dead);
 			break ;
 		}
-		usleep(philo->nb_philo * 2);
+		usleep(500);
 	}
 	return (0);
 }
 
 int	ft_think(t_philo *philo)
 {
-	ft_write(ft_get_time(), philo->name, "is thinking\n", philo);
+	ft_write(ft_get_time(philo->start), philo->name, "is thinking\n", philo);
 	sem_wait(philo->forks);
-	ft_write(ft_get_time(), philo->name, "has taken a fork\n", philo);
+	ft_write(ft_get_time(philo->start), philo->name,
+		"has taken a fork\n", philo);
 	sem_wait(philo->forks);
-	ft_write(ft_get_time(), philo->name, "has taken a fork\n", philo);
+	ft_write(ft_get_time(philo->start), philo->name,
+		"has taken a fork\n", philo);
 	return (0);
 }
 
@@ -47,20 +49,20 @@ int	ft_eat_and_sleep(t_philo *philo)
 {
 	int	time;
 
-	philo->last_eat = ft_get_time();
+	philo->last_eat = ft_get_time(philo->start);
 	if (*philo->end)
 		return (1);
-	ft_write(ft_get_time(), philo->name, "is eating\n", philo);
-	while (ft_get_time() - philo->last_eat < philo->t_to_eat)
-		usleep(philo->nb_philo * 2);
+	ft_write(ft_get_time(philo->start), philo->name, "is eating\n", philo);
+	while (ft_get_time(philo->start) - philo->last_eat < philo->t_to_eat)
+		usleep(500);
 	sem_post(philo->forks);
 	sem_post(philo->forks);
-	ft_write(ft_get_time(), philo->name, "is sleeping\n", philo);
+	ft_write(ft_get_time(philo->start), philo->name, "is sleeping\n", philo);
 	if (!philo->nb_times_to_eat)
 		return (0);
-	time = ft_get_time();
-	while (ft_get_time() - time < philo->t_to_sleep)
-		usleep(philo->nb_philo * 2);
+	time = ft_get_time(philo->start);
+	while (ft_get_time(philo->start) - time < philo->t_to_sleep)
+		usleep(500);
 	return (0);
 }
 

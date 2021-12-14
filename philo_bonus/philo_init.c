@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 16:06:34 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/13 08:19:48 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/14 15:16:55 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,44 +51,32 @@ int	check_params(int argc, char **argv)
 	return (1);
 }
 
-t_philo	variables_init2(int argc, char **argv, t_philo philo)
-{
-	philo.nb_philo = ft_atoi(argv[1]);
-	philo.t_to_die = ft_atoi(argv[2]);
-	philo.t_to_eat = ft_atoi(argv[3]);
-	philo.t_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		philo.nb_times_to_eat = ft_atoi(argv[5]);
-	else
-		philo.nb_times_to_eat = -1;
-	philo.last_eat = ft_get_time();
-	return (philo);
-}
-
-t_philo	*variables_init(int argc, char **argv, t_philo *philo)
+t_philo	*variables_init(int argc, char **argv, t_philo *philo, int *end)
 {
 	int		i;
-	int		*end;
 
 	i = 0;
-	end = malloc(sizeof(int));
-	if (!end)
-	{
-		free(philo);
-		return (0);
-	}
 	*end = 0;
 	while (i < ft_atoi(argv[1]))
 	{
+		philo[i].nb_philo = ft_atoi(argv[1]);
+		philo[i].t_to_die = ft_atoi(argv[2]);
+		philo[i].t_to_eat = ft_atoi(argv[3]);
+		philo[i].t_to_sleep = ft_atoi(argv[4]);
+		if (argc == 6)
+			philo[i].nb_times_to_eat = ft_atoi(argv[5]);
+		else
+			philo[i].nb_times_to_eat = -1;
 		philo[i].name = i + 1;
 		philo[i].end = end;
-		philo[i] = variables_init2(argc, argv, philo[i]);
+		philo[i].start = ft_get_time(0);
+		philo[i].last_eat = ft_get_time(philo[i].start);
 		i++;
 	}
 	return (philo);
 }
 
-t_philo	*philo_init(int argc, char **argv)
+t_philo	*philo_init(int argc, char **argv, int *end)
 {
 	t_philo	*philo;
 
@@ -101,6 +89,6 @@ t_philo	*philo_init(int argc, char **argv)
 	sem_unlink("write");
 	sem_unlink("finished");
 	sem_unlink("dead");
-	philo = variables_init(argc, argv, philo);
+	philo = variables_init(argc, argv, philo, end);
 	return (philo);
 }

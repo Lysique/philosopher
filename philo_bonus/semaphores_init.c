@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:12:31 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/04 09:55:15 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/14 15:24:25 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	*processes_init(void *arg)
 			routine(&philo[i]);
 			break ;
 		}
+		usleep(100);
 		i++;
 	}
 	return (0);
