@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 16:06:34 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/14 14:34:36 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/19 11:45:17 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	variables_init(int argc, char **argv, t_philo *philo)
 	i = 0;
 	while (i < ft_atoi(argv[1]))
 	{
+		philo[i].start = ft_get_time(0);
+		philo[i].last_eat = 0;
 		philo[i].name = i + 1;
 		philo[i].nb_philo = ft_atoi(argv[1]);
 		philo[i].t_to_die = ft_atoi(argv[2]);
@@ -69,8 +71,6 @@ void	variables_init(int argc, char **argv, t_philo *philo)
 			philo[i].nb_times_to_eat = -1;
 		philo[i].right = philo[i].name - 1;
 		philo[i].left = philo[i].name % philo[i].nb_philo;
-		philo[i].start = ft_get_time(0);
-		philo[i].last_eat = ft_get_time(philo[i].start);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 16:58:24 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/14 14:30:45 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/19 11:49:20 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	thread_init(t_philo *philo)
 			free(thread);
 			return (4);
 		}
-		usleep(100);
+		usleep(30);
 		i++;
 	}
 	death_checker(philo);

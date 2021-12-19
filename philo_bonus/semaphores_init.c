@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:12:31 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/14 15:24:25 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/19 11:51:48 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	*processes_init(void *arg)
 			routine(&philo[i]);
 			break ;
 		}
-		usleep(100);
 		i++;
 	}
 	return (0);
@@ -95,6 +94,8 @@ int	semaphores_init(t_philo *philo)
 	is_dead = sem_open("dead", O_CREAT, 0600, 0);
 	while (i < philo->nb_philo)
 	{
+		philo[i].start = ft_get_time(0);
+		philo[i].last_eat = 0;
 		philo[i].is_finished = is_finished;
 		philo[i].is_dead = is_dead;
 		philo[i].write = write;

@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:26:23 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/14 15:25:01 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/19 11:50:03 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ int	ft_eat_and_sleep(t_philo *philo)
 	{
 		if (*philo->is_dead)
 			return (1);
-		usleep(500);
+		usleep(philo->nb_philo * 2);
 	}
+	ft_write(ft_get_time(philo->start), philo->name, "is sleeping\n", philo);
 	pthread_mutex_unlock(&philo->forks[philo->right]);
 	pthread_mutex_unlock(&philo->forks[philo->left]);
-	ft_write(ft_get_time(philo->start), philo->name, "is sleeping\n", philo);
 	if (!philo->nb_times_to_eat)
 		return (0);
 	time = ft_get_time(philo->start);
@@ -68,7 +68,7 @@ int	ft_eat_and_sleep(t_philo *philo)
 	{	
 		if (*philo->is_dead)
 			return (1);
-		usleep(500);
+		usleep(philo->nb_philo * 2);
 	}
 	return (0);
 }

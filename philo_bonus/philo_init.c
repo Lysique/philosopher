@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 16:06:34 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/14 15:16:55 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/19 11:23:58 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ t_philo	*variables_init(int argc, char **argv, t_philo *philo, int *end)
 			philo[i].nb_times_to_eat = -1;
 		philo[i].name = i + 1;
 		philo[i].end = end;
-		philo[i].start = ft_get_time(0);
-		philo[i].last_eat = ft_get_time(philo[i].start);
 		i++;
 	}
 	return (philo);
